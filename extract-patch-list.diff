@@ -1,0 +1,23 @@
+diff --git a/patch-fbc.sh b/patch.sh
+index 03bd467..a7f52a1 100644
+--- a/patch.sh
++++ b/patch.sh
+@@ -406,12 +406,9 @@ list_supported_versions () {
+     get_supported_versions
+ }
+ 
+-case "${opmode}" in
+-    patch) patch ;;
+-    patchrollback) rollback ;;
+-    patchhelp) print_usage ; exit 2 ;;
+-    patchcheckversion) query_version_support ;;
+-    patchlistversions) list_supported_versions ;;
+-    *) echo "Incorrect combination of flags. Use option -h to get help."
+-       exit 2 ;;
+-esac
++for i in "${!patch_list[@]}"
++do
++    echo "$i" 
++    echo "${patch_list[$i]}"
++done |
++jq -n -R 'reduce inputs as $i ({}; . + { ($i): (input|(tonumber? // .)) })'
