@@ -27,12 +27,12 @@
         preFixup ? "",
         ...
       }: let
-        inherit (nixpkgs.lib) importJSON traceVal;
+        inherit (nixpkgs.lib) importJSON;
         jsons = extract rev hash;
         patchList = importJSON "${jsons}/${prefix}patch-list.json";
         objectList = importJSON "${jsons}/${prefix}object-list.json";
-        object = (traceVal objectList.${version});
-        patch = (traceVal patchList.${version});
+        object = objectList.${version};
+        patch = patchList.${version};
       in {
         preFixup =
           preFixup
