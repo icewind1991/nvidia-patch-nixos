@@ -19,8 +19,6 @@ nvidia-patch flake for NixOS
   {
     pkgs,
     config,
-    inputs,
-    system,
     ...
   }: let
     rev = "0fa9170"; # revision from https://github.com/keylase/nvidia-patch to use
