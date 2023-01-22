@@ -4,8 +4,8 @@
   jq,
   fetchFromGitHub,
   patch,
-}:
-rev: sha256: stdenv.mkDerivation rec {
+}: rev: sha256:
+stdenv.mkDerivation rec {
   pname = "nvidia-patch";
   version = rev;
 
