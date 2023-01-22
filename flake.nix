@@ -20,27 +20,32 @@
       devShell = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [jq patch];
       };
-
-      extract = pkgs.callPackage ./extract.nix {};
-      createPatch = prefix: driverPackage: rev: hash: driverPackage.overrideAttrs ({
-        version,
-        preFixup ? "",
-        ...
-      }: let
-        inherit (nixpkgs.lib) importJSON;
-        jsons = extract rev hash;
-        patchList = importJSON "${jsons}/${prefix}patch-list.json";
-        objectList = importJSON "${jsons}/${prefix}object-list.json";
-        object = objectList.${version};
-        patch = patchList.${version};
-      in {
-        preFixup =
-          preFixup
-          + ''
-            sed -i '${patch}' $out/lib/${object}.${version}
-          '';
-      });
-      patchNvenc = createPatch "";
-      patchFbc = createPatch "fbc-";
-    });
+    }) // {
+      overlay = final: prev: {
+        nvidia-patch = rev: hash: let
+          inherit (nixpkgs.lib) importJSON;
+          extract = final.callPackage ./extract.nix {};
+          jsons = extract rev hash;
+          createPatch = prefix: rev: hash: driverPackage: driverPackage.overrideAttrs ({
+            version,
+            preFixup ? "",
+            ...
+          }: let
+            patchList = importJSON "${jsons}/${prefix}patch-list.json";
+            objectList = importJSON "${jsons}/${prefix}object-list.json";
+            patch = patchList.${version};
+            object = objectList.${version};
+          in {
+            preFixup =
+              preFixup
+              + ''
+                sed -i '${patch}' $out/lib/${object}.${version}
+              '';
+          });
+        in {
+          patch-nvenc = createPatch "" rev hash;
+          patch-fbc = createPatch "fbc-" rev hash;
+        };
+      };
+    };
 }
