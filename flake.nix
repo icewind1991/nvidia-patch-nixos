@@ -13,8 +13,8 @@
       pkgs = (import nixpkgs) {
         inherit system;
       };
-      rev = "0fa9170";
-      hash = "sha256-+BkDUfVqqYMAG62OarNPJiNfghvHpOhhMlS5H+SV1dQ=";
+      rev = "af2616a252c990a8435bf86cf4788ce435474e24";
+      hash = "sha256-yocxfo7YvBCpHVV/ZhNQssyd3L9jvMFP7tz0cQucLr4=";
     in rec {
       # `nix develop`
       devShell = pkgs.mkShell {
