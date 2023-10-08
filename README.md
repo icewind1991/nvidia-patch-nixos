@@ -7,6 +7,7 @@ nvidia-patch flake for NixOS
 - Add this flake to your flake inputs:
   ```
   nvidia-patch.url = "github:icewind1991/nvidia-patch-nixos";
+  nvidia-patch.inputs.nixpkgs.follows = "nixpkgs";
   ```
 
 - Apply the overlay:
