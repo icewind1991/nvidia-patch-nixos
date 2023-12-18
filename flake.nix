@@ -1,7 +1,7 @@
 {
   inputs = {
     utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "nixpkgs/release-23.05";
   };
 
   outputs = {
@@ -35,19 +35,12 @@
             }: let
               patchList = importJSON "${jsons}/${prefix}patch-list.json";
               patch = patchList.${version};
+              object = "libnvidia-encode.so";
             in {
               preFixup =
                 preFixup
                 + ''
-                  version=${version}
-                  driver_maj_version=''${version%%.*}
-                  if [[ $driver_maj_version -ge "415" && $driver_maj_version -le "435" ]]; then
-                      object='libnvcuvid.so'
-                  else
-                      object='libnvidia-encode.so'
-                  fi
-
-                  sed -i '${patch}' $out/lib/''${object}.''${version}
+                  sed -i '${patch}' $out/lib/${object}.${version}
                 '';
             });
         in {
