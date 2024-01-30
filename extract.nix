@@ -27,17 +27,9 @@ stdenv.mkDerivation rec {
     patch -p1 < ${./extract-patch-list.diff}
     bash patch.sh > patch-list.json
 
-    cp ${src}/patch.sh patch.sh
-    patch -p1 < ${./extract-object-list.diff}
-    bash patch.sh > object-list.json
-
     cp ${src}/patch-fbc.sh patch.sh
     patch -p1 < ${./extract-patch-list.diff}
     bash patch.sh > fbc-patch-list.json
-
-    cp ${src}/patch-fbc.sh patch.sh
-    patch -p1 < ${./extract-object-list.diff}
-    bash patch.sh > fbc-object-list.json
   '';
 
   installPhase = ''

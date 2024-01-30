@@ -34,9 +34,8 @@
               ...
             }: let
               patchList = importJSON "${jsons}/${prefix}patch-list.json";
-              objectList = importJSON "${jsons}/${prefix}object-list.json";
               patch = patchList.${version};
-              object = objectList.${version};
+              object = "libnvidia-encode.so";
             in {
               preFixup =
                 preFixup
