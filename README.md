@@ -12,7 +12,7 @@ nvidia-patch flake for NixOS
 
 - Apply the overlay:
   ```
-  nixpkgs.overlays = [inputs.nvidia-patch.overlay];
+  nixpkgs.overlays = [inputs.nvidia-patch.overlays.default];
   ```
 
 - Apply the patch to your nvidia package
@@ -22,16 +22,17 @@ nvidia-patch flake for NixOS
     config,
     ...
   }: let
-    rev = "b63013c"; # revision from https://github.com/keylase/nvidia-patch to use
-    hash = "sha256-EDPoMTj3J1f/7Sv/q7P/lZ4r2aXOCdsbZ4FumbvuCWk="; # sha256sum for https://github.com/keylase/nvidia-patch at the specified revision
-    
-    # create patch functions for the specified revision
-    nvidia-patch = pkgs.nvidia-patch rev hash;
-  
     # nvidia package to patch
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   in {
-    hardware.nvidia.package = nvidia-patch.patch-nvenc (nvidia-patch.patch-fbc package);
+    hardware.nvidia.package = pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package);
   }
   
   ```
+
+## Changelog
+
+- 2024-04-31:
+  - The overlay has been moved from `nvidia-patch.overlay` to `nvidia-patch.overlays.default`
+  - You no longer need to provide the upstream `nvidia-patch` revision and hash.
+  - The patcher no longer relies on [IFD](https://nixos.org/manual/nix/unstable/language/import-from-derivation) which should speedup builds.
