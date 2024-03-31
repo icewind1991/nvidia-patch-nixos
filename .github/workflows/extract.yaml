@@ -1,0 +1,40 @@
+name: extract patches
+
+on:
+  push:
+    branches:
+      - 'main'
+  repository_dispatch:
+    types: [ extract ]
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Checkout nvidia-patch
+        uses: actions/checkout@v4
+        with:
+          repository: keylase/nvidia-patch
+          path: nvidia-patch
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v25
+      - name: Setup cache
+        uses: icewind1991/attic-action@v1
+        with:
+          name: ci
+          instance: https://cache.icewind.me
+          authToken: '${{ secrets.ATTIC_TOKEN }}'
+      - name: Extract nvenc patch
+        run: |
+          nix run .#nvidia-patch-extractor nvidia-patch/patch.sh > patch.json
+      - name: Extract fbc patch
+        run: |
+          nix run .#nvidia-patch-extractor nvidia-patch/patch-fbc.sh > patch-fbc.json
+      - name: Commit updated patches
+        uses: devops-infra/action-commit-push@v0.9.2
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          commit_prefix: "[AUTO]"
+          commit_message: "Update bundled patches"
