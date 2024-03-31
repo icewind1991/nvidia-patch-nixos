@@ -13,6 +13,6 @@ writeShellApplication {
     cp "$1" /tmp/nvidia-patch/patch.sh
     cd /tmp/nvidia-patch
     patch -p1 < ${./extract-patch-list.diff} 1>&2
-    bash patch.sh
+    bash patch.sh | jq --sort-keys .
   '';
 }
