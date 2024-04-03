@@ -8,7 +8,6 @@
     self,
     nixpkgs,
     utils,
-    nvidia-patch,
   }:
     utils.lib.eachDefaultSystem (system: let
       overlays = [

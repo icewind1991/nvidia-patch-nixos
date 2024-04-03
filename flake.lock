@@ -15,43 +15,10 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1705957679,
-        "narHash": "sha256-Q8LJaVZGJ9wo33wBafvZSzapYsjOaNjP/pOnSiKVGHY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9a333eaa80901efe01df07eade2c16d183761fa3",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "release-23.05",
-        "type": "indirect"
-      }
-    },
-    "nvidia-patch": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2",
-        "utils": "utils"
-      },
-      "locked": {
-        "lastModified": 1710367162,
-        "narHash": "sha256-f4hsLsOqPUlh3iqg6gARj+c4pZzJhaPhoeoH36u0yQM=",
-        "path": "/nix/store/rbwjwinvjyzd56zddf4jyix5b45czn8p-source",
-        "rev": "17dd5c8e24ed20f46873effeaefabdda4ef5fecc",
-        "type": "path"
-      },
-      "original": {
-        "id": "nvidia-patch",
-        "type": "indirect"
-      }
-    },
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "nvidia-patch": "nvidia-patch",
-        "utils": "utils_2"
+        "utils": "utils"
       }
     },
     "systems": {
@@ -70,21 +37,6 @@
       }
     },
     "utils": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "utils_2": {
       "inputs": {
         "systems": "systems"
       },
