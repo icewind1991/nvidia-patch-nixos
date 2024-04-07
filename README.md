@@ -1,6 +1,6 @@
 # nvidia-patch-nixos
 
-nvidia-patch flake for NixOS
+[nvidia-patch](https://github.com/keylase/nvidia-patch) flake for NixOS
 
 ## Usage
 
