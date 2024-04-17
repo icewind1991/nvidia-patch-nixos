@@ -5,7 +5,7 @@ on:
     branches:
       - 'main'
   repository_dispatch:
-    types: [ extract ]
+    types: [ build ]
 
 jobs:
   extract:
