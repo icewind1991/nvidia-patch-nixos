@@ -18,7 +18,7 @@
       };
     in rec {
       packages = rec {
-        inherit (pkgs) nvidia-patch-extractor nvidia-patch;
+        inherit (pkgs) nvidia-patch-extractor nvidia-patch nvidia-patch-list;
       };
       devShell = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [jq patch];

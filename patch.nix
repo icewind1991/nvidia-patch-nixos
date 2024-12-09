@@ -1,12 +1,10 @@
-{lib}: let
-  inherit (lib) importJSON;
-  createPatch = json: object: driverPackage:
+{nvidia-patch-list}: let
+  createPatch = patchList: object: driverPackage:
     driverPackage.overrideAttrs ({
       version,
       preFixup ? "",
       ...
     }: let
-      patchList = importJSON json;
       patch = patchList.${version};
     in {
       preFixup =
@@ -16,6 +14,6 @@
         '';
     });
 in {
-  patch-nvenc = createPatch ./patch.json "libnvidia-encode.so";
-  patch-fbc = createPatch ./patch-fbc.json "libnvidia-fbc.so";
+  patch-nvenc = createPatch nvidia-patch-list.nvenc "libnvidia-encode.so";
+  patch-fbc = createPatch nvidia-patch-list.fbc "libnvidia-fbc.so";
 }
