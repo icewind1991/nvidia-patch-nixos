@@ -2,11 +2,17 @@
 
 [nvidia-patch](https://github.com/keylase/nvidia-patch) flake for NixOS
 
+> [!NOTE]
+> I'm currently not using any nvidia hardware anymore so I'm no longer using this myself.
+>
+> While things should keep working, I'm no longer testing things.
+> If you interest is taking over maintenership of this project then feel free to reach out.
+
 ## Usage
 
 - Add this flake to your flake inputs:
   ```
-  nvidia-patch.url = "github:icewind1991/nvidia-patch-nixos";  
+  nvidia-patch.url = "github:icewind1991/nvidia-patch-nixos";
   nvidia-patch.inputs.nixpkgs.follows = "nixpkgs";
   ```
 
@@ -27,7 +33,7 @@
   in {
     hardware.nvidia.package = pkgs.nvidia-patch.patch-nvenc (pkgs.nvidia-patch.patch-fbc package);
   }
-  
+
   ```
 
 ## Changelog
